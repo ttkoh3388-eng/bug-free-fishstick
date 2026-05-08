@@ -27,7 +27,18 @@ function displayTasks(tasks){
         console.log(`${currentTask.id}.${currentTask.name} is due on ${currentTask.dateDue} with urgency ${currentTask.urgency}`);
         i++;
     }
-
 }
 
+    // tasks is the first parameter to be array in the function to store newTask
+function addTask(tasks, newName, newDateDue, newUrgency){
+    let newTask = {
+        id: Math.floor(Math.random() * 10000) + 1,
+        name: newName,
+        dateDue: newDateDue,
+        urgency: newUrgency
+    }
+    tasks.push(newTask);
+}
+       
+addTask(tasks, "Clean the bathroom", "2026-05-04", 5);
 displayTasks(tasks);
