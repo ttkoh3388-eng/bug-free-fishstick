@@ -41,7 +41,7 @@ function addTask(tasks, newName, newDateDue, newUrgency) {
     }
     tasks.push(newTask);
 }
-function deleteTask(displayTasks, idToDelete) {
+function deleteTask(tasks, idToDelete) {
     // linear search algorithm
     let i = 0;
     let wantedIndex = -1;
@@ -115,6 +115,15 @@ function main() {
 
         updateTask(tasks, idToUpdate, newName, newDateDue, newUrgency);
         console.log("Task updated")
+    }
+    if (choice==4){
+        console.log();
+        console.log("Delete Task");
+        displayTasks(tasks);
+
+        let idToDelete = parseInt(prompt("Enter the ID to delete; "));
+
+        deleteTask(tasks, idToDelete);
     }
 
     if (choice==5) {
