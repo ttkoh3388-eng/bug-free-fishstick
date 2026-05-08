@@ -29,7 +29,7 @@ function displayTasks(tasks){
     }
 }
 
-    // tasks is the first parameter to be array in the function to store newTask
+    // tasks is the first parameter of the funtion is the array to add a new task to
 function addTask(tasks, newName, newDateDue, newUrgency){
     let newTask = {
         id: Math.floor(Math.random() * 10000) + 1,
@@ -39,6 +39,23 @@ function addTask(tasks, newName, newDateDue, newUrgency){
     }
     tasks.push(newTask);
 }
+
+function deleteTask(displayTasks, idToDelete) {
+    let i = 0;
+    let wantedIndex = -1;
+    while (i < tasks.length) {
+        if (tasks[i].id == idToDelete)  {
+            wantedIndex = i;
+            break;
+        }
+        i++
+    }
+    if (wantedIndex != -1) {
+        tasks.splice(wantedIndex, 1);
+    }
+}
        
 addTask(tasks, "Clean the bathroom", "2026-05-04", 5);
+displayTasks(tasks);
+deleteTask(tasks, 1);
 displayTasks(tasks);
