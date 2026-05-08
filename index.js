@@ -1,3 +1,5 @@
+const prompt = require("prompt-sync")();
+
 let tasks = [
     {
         "id": 1,
@@ -19,7 +21,7 @@ let tasks = [
     }
 ]
 
-function displayTasks(tasks){
+function displayTasks(tasks) {
 
     let i = 0;
     while (i < tasks.length) {
@@ -29,8 +31,8 @@ function displayTasks(tasks){
     }
 }
 
-    // tasks is the first parameter of the funtion is the array to add a new task to
-function addTask(tasks, newName, newDateDue, newUrgency){
+// the first parameter of the funtion is the array to add a new task to
+function addTask(tasks, newName, newDateDue, newUrgency) {
     let newTask = {
         id: Math.floor(Math.random() * 10000) + 1,
         name: newName,
@@ -39,23 +41,85 @@ function addTask(tasks, newName, newDateDue, newUrgency){
     }
     tasks.push(newTask);
 }
-
 function deleteTask(displayTasks, idToDelete) {
+    // linear search algorithm
     let i = 0;
     let wantedIndex = -1;
     while (i < tasks.length) {
-        if (tasks[i].id == idToDelete)  {
+        if (tasks[i].id == idToDelete) {
             wantedIndex = i;
             break;
         }
-        i++
+        i++;
     }
     if (wantedIndex != -1) {
         tasks.splice(wantedIndex, 1);
     }
 }
-       
-addTask(tasks, "Clean the bathroom", "2026-05-04", 5);
-displayTasks(tasks);
-deleteTask(tasks, 1);
-displayTasks(tasks);
+function updateTask(tasks, idToUpdate, newName, newDateDue, newUrgency) {
+    let modifiedTask = {
+        id: idToUpdate,
+        name: newName,
+        dateDue: newDateDue,
+        urgency: newUrgency
+    }
+    // linear search algorithm
+    let i = 0;
+    let indexToUpdate = -1;
+    while (i < tasks.length) {
+        if (tasks[i].id == idToUpdate) {
+            indexToUpdate = i;
+            break;
+        }
+        i++;
+    }
+
+    if (indexToUpdate != -1) {
+        tasks[indexToUpdate] = modifiedTask;
+    }
+}
+// the starting point of the JaveScript program
+function main() {
+
+    while (true) {
+    console.log("Welcome to Getting Things Done");
+    console.log("1. Display al. todos");
+    console.log("2. Add new todo");
+    console.log("3. Update todo");
+    console.log("4. Delete todo");
+    console.log("5. Quit");
+    let choice = parseInt(prompt("Please select an option: "));
+    if (choice==1) {
+        console.log();
+        console.log("Show all tasks:");
+        displayTasks(tasks);
+    }
+    if (choice==2) {
+        console.log();
+        console.log("Create new task");
+        let newName = prompt("Enter the name of the new task: ");
+        let newDateDue = prompt("Enter the date due (YYYY-MM-DD) for the new task: ");
+        let newUrgency = prompt("Enter the new urgency. 1 = least urgent, 5 = very urgent: ");
+        addTask(tasks, newName, newDateDue, newUrgency);
+        console.log("New task has been added");
+    }
+
+    if (choice==5) {
+        break;
+    }
+}
+
+
+
+
+}
+function test() {
+    addTask(tasks, "Clean the bathroom", "2026-05-04", 5);
+    updateTask(tasks, 2, "Clean the master bedroom", "2026-05-31", 1);
+    displayTasks(tasks);
+    deleteTask(tasks, 1);
+    console.log("After delete tasks");
+    displayTasks(tasks);
+}
+
+main();
